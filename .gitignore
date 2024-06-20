@@ -2,3 +2,5 @@
 .godot/
 
 *.exe
+
+export_presets.cfg
