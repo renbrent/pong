@@ -1,0 +1,83 @@
+[gd_scene load_steps=9 format=3 uid="uid://fa6nll8dcf05"]
+
+[ext_resource type="PackedScene" uid="uid://bavpj0dvivo2l" path="res://scenes/player.tscn" id="1_3krq7"]
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_flgam"]
+[ext_resource type="PackedScene" uid="uid://calah218rrkwt" path="res://scenes/cpu.tscn" id="2_rxu7g"]
+[ext_resource type="PackedScene" uid="uid://drwt2acjyxuk3" path="res://scenes/ball.tscn" id="3_5yq2f"]
+[ext_resource type="FontFile" uid="uid://nofeiin771pw" path="res://assets/PixelOperator8.ttf" id="5_k5yom"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x3lwr"]
+size = Vector2(1772, 68.625)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_02geh"]
+size = Vector2(22, 997)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tl8uy"]
+size = Vector2(20, 998)
+
+[node name="Game" type="Node2D"]
+position = Vector2(576, 324)
+script = ExtResource("1_flgam")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.65, 0.65)
+
+[node name="Player" parent="." instance=ExtResource("1_3krq7")]
+position = Vector2(-800, 0)
+
+[node name="CPU" parent="." instance=ExtResource("2_rxu7g")]
+position = Vector2(800, 0)
+
+[node name="Wall" type="StaticBody2D" parent="."]
+
+[node name="Top" type="CollisionShape2D" parent="Wall"]
+position = Vector2(0.125, -534.625)
+shape = SubResource("RectangleShape2D_x3lwr")
+
+[node name="Bottom" type="CollisionShape2D" parent="Wall"]
+position = Vector2(0, 533.313)
+shape = SubResource("RectangleShape2D_x3lwr")
+
+[node name="Ball" parent="." instance=ExtResource("3_5yq2f")]
+
+[node name="LeftGoal" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftGoal"]
+position = Vector2(-897, -0.5)
+shape = SubResource("RectangleShape2D_02geh")
+
+[node name="RightGoal" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightGoal"]
+position = Vector2(896, 0)
+shape = SubResource("RectangleShape2D_tl8uy")
+
+[node name="BallTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Player" type="Label" parent="HUD"]
+offset_left = 448.0
+offset_right = 576.0
+offset_bottom = 112.0
+theme_override_fonts/font = ExtResource("5_k5yom")
+theme_override_font_sizes/font_size = 60
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CPU" type="Label" parent="HUD"]
+offset_left = 576.0
+offset_right = 704.0
+offset_bottom = 112.0
+theme_override_fonts/font = ExtResource("5_k5yom")
+theme_override_font_sizes/font_size = 60
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="body_entered" from="LeftGoal" to="." method="_on_left_goal_body_entered"]
+[connection signal="body_entered" from="RightGoal" to="." method="_on_right_goal_body_entered"]
+[connection signal="timeout" from="BallTimer" to="." method="_on_ball_timer_timeout"]

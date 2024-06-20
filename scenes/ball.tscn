@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://drwt2acjyxuk3"]
+
+[ext_resource type="Script" path="res://scripts/ball.gd" id="1_bgdcx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k2b3h"]
+size = Vector2(40, 40)
+
+[node name="Ball" type="CharacterBody2D"]
+slide_on_ceiling = false
+floor_block_on_wall = false
+script = ExtResource("1_bgdcx")
+start_speed = 500.0
+accelerate = 30.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -13.0
+offset_top = -13.0
+offset_right = 27.0
+offset_bottom = 27.0
+scale = Vector2(0.65, 0.65)
+color = Color(0.337255, 1, 1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.65, 0.65)
+shape = SubResource("RectangleShape2D_k2b3h")

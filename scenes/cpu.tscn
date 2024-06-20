@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://calah218rrkwt"]
+
+[ext_resource type="Script" path="res://scripts/cpu.gd" id="1_vuipb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nwj7u"]
+size = Vector2(32, 192)
+
+[node name="CPU" type="AnimatableBody2D"]
+sync_to_physics = false
+script = ExtResource("1_vuipb")
+speed = 500.0
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(-16, -96)
+scale = Vector2(0.166667, 0.296296)
+color = Color(0.337255, 1, 1, 1)
+polygon = PackedVector2Array(0, 0, 192, 0, 192, 320, 192, 648, 0, 648)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_nwj7u")
